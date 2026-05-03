@@ -13,12 +13,23 @@ const styles: Record<BadgeValue, string> = {
   unread: "border-cyan-200 bg-cyan-50 text-cyan-700",
 }
 
+const labels: Record<BadgeValue, string> = {
+  Pending: "Beklemede",
+  Approved: "Onaylandı",
+  Cancelled: "İptal edildi",
+  Completed: "Tamamlandı",
+  active: "Aktif",
+  inactive: "Pasif",
+  read: "Okundu",
+  unread: "Okunmadı",
+}
+
 export default function Badge({ value }: { value: BadgeValue }) {
   return (
     <span
-      className={`inline-flex min-w-20 items-center justify-center rounded-full border px-3 py-1 text-xs font-semibold capitalize ${styles[value]}`}
+      className={`inline-flex min-w-24 items-center justify-center rounded-full border px-3 py-1 text-xs font-semibold ${styles[value]}`}
     >
-      {value}
+      {labels[value]}
     </span>
   )
 }

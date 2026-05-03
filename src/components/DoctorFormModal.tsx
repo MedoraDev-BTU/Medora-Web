@@ -2,6 +2,7 @@ import { X } from "lucide-react"
 import { useState } from "react"
 import type { Doctor, DoctorFormValues } from "../types"
 import Button from "./Button"
+import { shortDayLabels } from "./utils"
 
 const dayOptions = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
@@ -69,12 +70,12 @@ export default function DoctorFormModal({
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
           <div>
             <h2 className="text-lg font-bold text-slate-950">
-              {doctor ? "Edit doctor" : "Add doctor"}
+              {doctor ? "Doktoru düzenle" : "Doktor ekle"}
             </h2>
-            <p className="text-sm text-slate-500">Manage clinical availability.</p>
+            <p className="text-sm text-slate-500">Klinik uygunluğu yönetin.</p>
           </div>
           <button
-            aria-label="Close modal"
+            aria-label="Pencereyi kapat"
             className="rounded-md p-2 text-slate-500 hover:bg-slate-100"
             type="button"
             onClick={onClose}
@@ -85,7 +86,7 @@ export default function DoctorFormModal({
 
         <div className="grid gap-4 px-6 py-5 sm:grid-cols-2">
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Doctor name
+            Doktor adı
             <input
               required
               className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
@@ -96,7 +97,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Specialty
+            Uzmanlık
             <input
               required
               className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
@@ -107,7 +108,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Phone
+            Telefon
             <input
               required
               className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
@@ -118,7 +119,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Email
+            E-posta
             <input
               required
               type="email"
@@ -130,7 +131,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Start time
+            Başlangıç saati
             <input
               required
               type="time"
@@ -142,7 +143,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            End time
+            Bitiş saati
             <input
               required
               type="time"
@@ -154,7 +155,7 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Status
+            Durum
             <select
               className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
               value={values.status}
@@ -165,12 +166,12 @@ export default function DoctorFormModal({
                 })
               }
             >
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="active">Aktif</option>
+              <option value="inactive">Pasif</option>
             </select>
           </label>
           <div className="space-y-2 sm:col-span-2">
-            <p className="text-sm font-semibold text-slate-700">Working days</p>
+            <p className="text-sm font-semibold text-slate-700">Çalışma günleri</p>
             <div className="flex flex-wrap gap-2">
               {dayOptions.map((day) => (
                 <button
@@ -183,7 +184,7 @@ export default function DoctorFormModal({
                   type="button"
                   onClick={() => toggleDay(day)}
                 >
-                  {day.slice(0, 3)}
+                  {shortDayLabels[day] ?? day}
                 </button>
               ))}
             </div>
@@ -192,10 +193,10 @@ export default function DoctorFormModal({
 
         <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
           <Button type="button" variant="secondary" onClick={onClose}>
-            Cancel
+            Vazgeç
           </Button>
           <Button disabled={isSaving || values.workingDays.length === 0} type="submit">
-            {isSaving ? "Saving..." : "Save doctor"}
+            {isSaving ? "Kaydediliyor..." : "Doktoru kaydet"}
           </Button>
         </div>
       </form>

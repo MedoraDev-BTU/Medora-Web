@@ -15,12 +15,12 @@ import { NavLink, Outlet } from "react-router-dom"
 import { useNotifications } from "../hooks/useClinicQueries"
 
 const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/doctors", label: "Doctors", icon: Stethoscope },
-  { to: "/appointments", label: "Appointments", icon: ClipboardList },
-  { to: "/schedule", label: "Schedule", icon: CalendarDays },
-  { to: "/notifications", label: "Notifications", icon: Bell },
-  { to: "/history", label: "History", icon: History },
+  { to: "/dashboard", label: "Panel", icon: LayoutDashboard },
+  { to: "/doctors", label: "Doktorlar", icon: Stethoscope },
+  { to: "/appointments", label: "Randevular", icon: ClipboardList },
+  { to: "/schedule", label: "Takvim", icon: CalendarDays },
+  { to: "/notifications", label: "Bildirimler", icon: Bell },
+  { to: "/history", label: "Geçmiş", icon: History },
 ]
 
 export default function AdminLayout() {
@@ -37,7 +37,7 @@ export default function AdminLayout() {
         <div>
           <p className="text-lg font-bold text-slate-950">Medora</p>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cyan-700">
-            Admin panel
+            Yönetim paneli
           </p>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default function AdminLayout() {
           to="/login"
         >
           <LogOut className="h-5 w-5" />
-          Sign out
+          Çıkış yap
         </NavLink>
       </div>
     </aside>
@@ -85,7 +85,7 @@ export default function AdminLayout() {
       {open ? (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
-            aria-label="Close menu"
+            aria-label="Menüyü kapat"
             className="absolute inset-0 bg-slate-950/40"
             type="button"
             onClick={() => setOpen(false)}
@@ -93,7 +93,7 @@ export default function AdminLayout() {
           <div className="relative h-full">
             {sidebar}
             <button
-              aria-label="Close menu"
+              aria-label="Menüyü kapat"
               className="absolute right-4 top-4 rounded-md p-2 text-slate-500 hover:bg-slate-100"
               type="button"
               onClick={() => setOpen(false)}
@@ -107,7 +107,7 @@ export default function AdminLayout() {
       <div className="lg:pl-72">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur lg:px-8">
           <button
-            aria-label="Open menu"
+            aria-label="Menüyü aç"
             className="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
             type="button"
             onClick={() => setOpen(true)}
@@ -115,15 +115,15 @@ export default function AdminLayout() {
             <Menu className="h-6 w-6" />
           </button>
           <div className="hidden text-sm font-semibold text-slate-600 sm:block">
-            Clinic appointment management
+            Klinik randevu yönetimi
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
-              <p className="text-sm font-bold text-slate-950">Admin User</p>
-              <p className="text-xs text-slate-500">Operations desk</p>
+              <p className="text-sm font-bold text-slate-950">Yönetici</p>
+              <p className="text-xs text-slate-500">Operasyon masası</p>
             </div>
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-sm font-bold text-cyan-700">
-              AU
+              YK
             </div>
           </div>
         </header>

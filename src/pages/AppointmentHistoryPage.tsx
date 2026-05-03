@@ -4,7 +4,12 @@ import Badge from "../components/Badge"
 import EmptyState from "../components/EmptyState"
 import { ErrorState, LoadingState } from "../components/FeedbackStates"
 import PageHeader from "../components/PageHeader"
-import { doctorName, formatDate, today } from "../components/utils"
+import {
+  appointmentStatusLabels,
+  doctorName,
+  formatDate,
+  today,
+} from "../components/utils"
 import { useAppointments, useDoctors } from "../hooks/useClinicQueries"
 import type { AppointmentFilters, AppointmentStatus } from "../types"
 
@@ -52,23 +57,23 @@ export default function AppointmentHistoryPage() {
   )
 
   if (appointmentsQuery.isLoading || doctorsQuery.isLoading) {
-    return <LoadingState label="Loading appointment history" />
+    return <LoadingState label="Randevu geçmişi yükleniyor" />
   }
 
   if (appointmentsQuery.isError || doctorsQuery.isError) {
-    return <ErrorState label="History could not be loaded" />
+    return <ErrorState label="Geçmiş yüklenemedi" />
   }
 
   return (
     <>
       <PageHeader
-        title="Appointment history"
-        description="Review past and upcoming visits with patient, doctor, date, and status filters."
+        title="Randevu geçmişi"
+        description="Geçmiş ve yaklaşan ziyaretleri hasta, doktor, tarih ve durum filtreleriyle inceleyin."
       />
 
       <section className="mb-5 grid gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-2 xl:grid-cols-5">
         <label className="text-sm font-semibold text-slate-700">
-          Patient name
+          Hasta adı
           <input
             className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 font-normal outline-none focus:border-cyan-500"
             value={filters.patientName}
@@ -78,7 +83,7 @@ export default function AppointmentHistoryPage() {
           />
         </label>
         <label className="text-sm font-semibold text-slate-700">
-          Doctor name
+          Doktor adı
           <input
             className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 font-normal outline-none focus:border-cyan-500"
             value={filters.doctorName}
@@ -88,7 +93,7 @@ export default function AppointmentHistoryPage() {
           />
         </label>
         <label className="text-sm font-semibold text-slate-700">
-          Start date
+          Başlangıç tarihi
           <input
             className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 font-normal outline-none focus:border-cyan-500"
             type="date"
@@ -99,7 +104,7 @@ export default function AppointmentHistoryPage() {
           />
         </label>
         <label className="text-sm font-semibold text-slate-700">
-          End date
+          Bitiş tarihi
           <input
             className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 font-normal outline-none focus:border-cyan-500"
             type="date"
@@ -110,7 +115,7 @@ export default function AppointmentHistoryPage() {
           />
         </label>
         <label className="text-sm font-semibold text-slate-700">
-          Status
+          Durum
           <select
             className="mt-1 w-full rounded-md border border-slate-200 px-3 py-2 font-normal outline-none focus:border-cyan-500"
             value={filters.status}
@@ -123,7 +128,7 @@ export default function AppointmentHistoryPage() {
           >
             {statusOptions.map((status) => (
               <option key={status} value={status}>
-                {status}
+                {appointmentStatusLabels[status]}
               </option>
             ))}
           </select>
@@ -132,9 +137,9 @@ export default function AppointmentHistoryPage() {
 
       {filteredAppointments.length === 0 ? (
         <EmptyState
-          description="No appointments match the selected filters."
+          description="Seçilen filtrelerle eşleşen randevu yok."
           icon={<History className="h-6 w-6" />}
-          title="No matching records"
+          title="Eşleşen kayıt yok"
         />
       ) : (
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -142,12 +147,12 @@ export default function AppointmentHistoryPage() {
             <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
               <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                 <tr>
-                  <th className="px-4 py-3">Patient</th>
-                  <th className="px-4 py-3">Doctor</th>
-                  <th className="px-4 py-3">Date</th>
-                  <th className="px-4 py-3">Time</th>
-                  <th className="px-4 py-3">Period</th>
-                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Hasta</th>
+                  <th className="px-4 py-3">Doktor</th>
+                  <th className="px-4 py-3">Tarih</th>
+                  <th className="px-4 py-3">Saat</th>
+                  <th className="px-4 py-3">Dönem</th>
+                  <th className="px-4 py-3">Durum</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -173,7 +178,7 @@ export default function AppointmentHistoryPage() {
                             : "bg-cyan-50 text-cyan-700"
                         }`}
                       >
-                        {appointment.date < today ? "Past" : "Upcoming"}
+                        {appointment.date < today ? "Geçmiş" : "Yaklaşan"}
                       </span>
                     </td>
                     <td className="px-4 py-4">

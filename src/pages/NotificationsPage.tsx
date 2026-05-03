@@ -11,11 +11,11 @@ export default function NotificationsPage() {
   const toggleNotification = useToggleNotification()
 
   if (notificationsQuery.isLoading) {
-    return <LoadingState label="Loading notifications" />
+    return <LoadingState label="Bildirimler yükleniyor" />
   }
 
   if (notificationsQuery.isError) {
-    return <ErrorState label="Notifications could not be loaded" />
+    return <ErrorState label="Bildirimler yüklenemedi" />
   }
 
   const notifications = notificationsQuery.data ?? []
@@ -23,15 +23,15 @@ export default function NotificationsPage() {
   return (
     <>
       <PageHeader
-        title="Notifications"
-        description="Track appointment requests, cancellations, postponements, and completions."
+        title="Bildirimler"
+        description="Randevu taleplerini, iptalleri, ertelemeleri ve tamamlanan işlemleri takip edin."
       />
 
       {notifications.length === 0 ? (
         <EmptyState
-          description="Operational updates will appear here."
+          description="Operasyon güncellemeleri burada görünür."
           icon={<BellRing className="h-6 w-6" />}
-          title="No notifications"
+          title="Bildirim yok"
         />
       ) : (
         <div className="space-y-3">
@@ -48,7 +48,7 @@ export default function NotificationsPage() {
                   </div>
                   <p className="mt-2 text-sm text-slate-600">{notification.message}</p>
                   <p className="mt-2 text-xs font-medium text-slate-400">
-                    {new Date(notification.createdAt).toLocaleString()}
+                    {new Date(notification.createdAt).toLocaleString("tr-TR")}
                   </p>
                 </div>
                 <Button
@@ -56,7 +56,7 @@ export default function NotificationsPage() {
                   variant="secondary"
                   onClick={() => toggleNotification.mutate(notification.id)}
                 >
-                  Mark {notification.read ? "unread" : "read"}
+                  {notification.read ? "Okunmadı olarak işaretle" : "Okundu olarak işaretle"}
                 </Button>
               </div>
             </article>

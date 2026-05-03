@@ -6,11 +6,11 @@ import { doctorName } from "../components/utils"
 import { useAppointments, useDoctors } from "../hooks/useClinicQueries"
 
 const week = [
-  { label: "Mon", date: "2026-04-27", name: "Monday" },
-  { label: "Tue", date: "2026-04-28", name: "Tuesday" },
-  { label: "Wed", date: "2026-04-29", name: "Wednesday" },
-  { label: "Thu", date: "2026-04-30", name: "Thursday" },
-  { label: "Fri", date: "2026-05-01", name: "Friday" },
+  { label: "Pzt", date: "2026-04-27", name: "Monday" },
+  { label: "Sal", date: "2026-04-28", name: "Tuesday" },
+  { label: "Çar", date: "2026-04-29", name: "Wednesday" },
+  { label: "Per", date: "2026-04-30", name: "Thursday" },
+  { label: "Cum", date: "2026-05-01", name: "Friday" },
 ]
 
 const timeSlots = ["08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "12:00", "13:30", "14:00", "15:00", "16:00", "17:00"]
@@ -20,11 +20,11 @@ export default function SchedulePage() {
   const appointmentsQuery = useAppointments()
 
   if (doctorsQuery.isLoading || appointmentsQuery.isLoading) {
-    return <LoadingState label="Loading weekly schedule" />
+    return <LoadingState label="Haftalık takvim yükleniyor" />
   }
 
   if (doctorsQuery.isError || appointmentsQuery.isError) {
-    return <ErrorState label="Schedule could not be loaded" />
+    return <ErrorState label="Takvim yüklenemedi" />
   }
 
   const doctors = doctorsQuery.data ?? []
@@ -34,15 +34,15 @@ export default function SchedulePage() {
   return (
     <>
       <PageHeader
-        title="Schedule"
-        description="Weekly doctor availability with booked slots separated by doctor and time."
+        title="Takvim"
+        description="Doktor ve saate göre ayrılmış haftalık uygunluk ve dolu randevu saatleri."
       />
 
       {activeDoctors.length === 0 ? (
         <EmptyState
-          description="Activate doctors to see their weekly working schedule."
+          description="Haftalık çalışma takvimlerini görmek için doktorları aktif hale getirin."
           icon={<CalendarDays className="h-6 w-6" />}
-          title="No active schedules"
+          title="Aktif takvim yok"
         />
       ) : (
         <div className="space-y-5">
@@ -63,7 +63,7 @@ export default function SchedulePage() {
               <div className="overflow-x-auto">
                 <div className="min-w-[900px]">
                   <div className="grid grid-cols-[92px_repeat(5,1fr)] border-b border-slate-200 bg-white text-xs font-bold uppercase tracking-wide text-slate-500">
-                    <div className="px-3 py-3">Time</div>
+                    <div className="px-3 py-3">Saat</div>
                     {week.map((day) => (
                       <div key={day.date} className="border-l border-slate-200 px-3 py-3">
                         {day.label}
@@ -120,7 +120,7 @@ export default function SchedulePage() {
                               </div>
                             ) : (
                               <span className="text-xs text-slate-300">
-                                {isWorking ? "Open" : "Off"}
+                                {isWorking ? "Uygun" : "Kapalı"}
                               </span>
                             )}
                           </div>

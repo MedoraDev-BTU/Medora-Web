@@ -3,10 +3,12 @@ export type AppointmentStatus = "Pending" | "Approved" | "Cancelled" | "Complete
 export type DoctorStatus = "active" | "inactive"
 
 export type NotificationType =
-  | "New appointment request"
-  | "Patient cancelled appointment"
-  | "Appointment postponed"
-  | "Appointment completed"
+  | "Yeni randevu talebi"
+  | "Randevu onaylandı"
+  | "Randevu iptal edildi"
+  | "Hasta randevuyu iptal etti"
+  | "Randevu ertelendi"
+  | "Randevu tamamlandı"
 
 export interface Doctor {
   id: string

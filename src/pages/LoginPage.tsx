@@ -10,15 +10,15 @@ export default function LoginPage() {
       <section className="grid w-full max-w-5xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-xl shadow-slate-950/10 lg:grid-cols-[1fr_1.1fr]">
         <div className="bg-cyan-700 p-8 text-white">
           <CalendarClock className="h-11 w-11" />
-          <h1 className="mt-8 text-3xl font-bold">Medora Admin Panel</h1>
+          <h1 className="mt-8 text-3xl font-bold">Medora Yönetim Paneli</h1>
           <p className="mt-3 max-w-sm text-cyan-50">
-            Manage doctor schedules, appointment requests, and clinic
-            notifications from one focused workspace.
+            Doktor takvimlerini, randevu taleplerini ve klinik bildirimlerini
+            tek bir odaklı çalışma alanından yönetin.
           </p>
           <div className="mt-10 grid gap-3 text-sm text-cyan-50">
-            <span>Today's queue grouped by doctor</span>
-            <span>Fast appointment status changes</span>
-            <span>Weekly schedule visibility</span>
+            <span>Doktora göre gruplanmış günlük sıra</span>
+            <span>Hızlı randevu durumu güncellemeleri</span>
+            <span>Haftalık takvim görünürlüğü</span>
           </div>
         </div>
         <form
@@ -28,12 +28,12 @@ export default function LoginPage() {
             navigate("/dashboard")
           }}
         >
-          <h2 className="text-2xl font-bold text-slate-950">Welcome back</h2>
+          <h2 className="text-2xl font-bold text-slate-950">Tekrar hoş geldiniz</h2>
           <p className="mt-1 text-sm text-slate-500">
-            Use any email and password while the backend is mocked.
+            Arka uç simüle edildiği için herhangi bir e-posta ve parola kullanabilirsiniz.
           </p>
           <label className="mt-8 block text-sm font-semibold text-slate-700">
-            Email
+            E-posta
             <div className="mt-2 flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2">
               <Mail className="h-5 w-5 text-slate-400" />
               <input
@@ -45,7 +45,7 @@ export default function LoginPage() {
             </div>
           </label>
           <label className="mt-4 block text-sm font-semibold text-slate-700">
-            Password
+            Parola
             <div className="mt-2 flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2">
               <Lock className="h-5 w-5 text-slate-400" />
               <input
@@ -57,12 +57,12 @@ export default function LoginPage() {
             </div>
           </label>
           <Button className="mt-6 w-full" type="submit">
-            Sign in
+            Giriş yap
           </Button>
           <p className="mt-5 text-center text-sm text-slate-500">
-            Need an account?{" "}
+            Hesabınız yok mu?{" "}
             <Link className="font-semibold text-cyan-700" to="/register">
-              Register
+              Kaydol
             </Link>
           </p>
         </form>

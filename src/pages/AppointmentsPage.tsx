@@ -18,11 +18,11 @@ export default function AppointmentsPage() {
   const action = useAppointmentAction()
 
   if (appointmentsQuery.isLoading || doctorsQuery.isLoading) {
-    return <LoadingState label="Loading appointments" />
+    return <LoadingState label="Randevular yükleniyor" />
   }
 
   if (appointmentsQuery.isError || doctorsQuery.isError) {
-    return <ErrorState label="Appointments could not be loaded" />
+    return <ErrorState label="Randevular yüklenemedi" />
   }
 
   const appointments = appointmentsQuery.data ?? []
@@ -34,15 +34,15 @@ export default function AppointmentsPage() {
   return (
     <>
       <PageHeader
-        title="Appointments"
-        description="Approve, cancel, postpone, and complete appointment requests."
+        title="Randevular"
+        description="Randevu taleplerini onaylayın, iptal edin, erteleyin ve tamamlayın."
       />
 
       {appointments.length === 0 ? (
         <EmptyState
-          description="Appointment requests will appear here when patients book visits."
+          description="Hastalar ziyaret oluşturduğunda randevu talepleri burada görünür."
           icon={<Clock3 className="h-6 w-6" />}
-          title="No appointments"
+          title="Randevu yok"
         />
       ) : (
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -50,12 +50,12 @@ export default function AppointmentsPage() {
             <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
               <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                 <tr>
-                  <th className="px-4 py-3">Patient name</th>
-                  <th className="px-4 py-3">Doctor name</th>
-                  <th className="px-4 py-3">Date</th>
-                  <th className="px-4 py-3">Time</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3">Hasta adı</th>
+                  <th className="px-4 py-3">Doktor adı</th>
+                  <th className="px-4 py-3">Tarih</th>
+                  <th className="px-4 py-3">Saat</th>
+                  <th className="px-4 py-3">Durum</th>
+                  <th className="px-4 py-3 text-right">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -85,7 +85,7 @@ export default function AppointmentsPage() {
                           className="h-9 px-3"
                           disabled={action.isPending}
                           icon={<Check className="h-4 w-4" />}
-                          title="Approve"
+                          title="Onayla"
                           variant="secondary"
                           onClick={() => updateStatus(appointment.id, "Approved")}
                         />
@@ -93,7 +93,7 @@ export default function AppointmentsPage() {
                           className="h-9 px-3"
                           disabled={action.isPending}
                           icon={<CalendarX className="h-4 w-4" />}
-                          title="Cancel"
+                          title="İptal et"
                           variant="danger"
                           onClick={() => updateStatus(appointment.id, "Cancelled")}
                         />
@@ -101,7 +101,7 @@ export default function AppointmentsPage() {
                           className="h-9 px-3"
                           disabled={action.isPending}
                           icon={<MoveRight className="h-4 w-4" />}
-                          title="Postpone"
+                          title="Ertele"
                           variant="secondary"
                           onClick={() => action.mutate({ id: appointment.id })}
                         />
@@ -109,7 +109,7 @@ export default function AppointmentsPage() {
                           className="h-9 px-3"
                           disabled={action.isPending}
                           icon={<CheckCircle2 className="h-4 w-4" />}
-                          title="Mark completed"
+                          title="Tamamlandı olarak işaretle"
                           variant="secondary"
                           onClick={() => updateStatus(appointment.id, "Completed")}
                         />

@@ -6,6 +6,7 @@ import DoctorFormModal from "../components/DoctorFormModal"
 import EmptyState from "../components/EmptyState"
 import { ErrorState, LoadingState } from "../components/FeedbackStates"
 import PageHeader from "../components/PageHeader"
+import { dayLabels } from "../components/utils"
 import {
   useCreateDoctor,
   useDeleteDoctor,
@@ -51,17 +52,17 @@ export default function DoctorsPage() {
     }
   }
 
-  if (doctorsQuery.isLoading) return <LoadingState label="Loading doctors" />
-  if (doctorsQuery.isError) return <ErrorState label="Doctors could not be loaded" />
+  if (doctorsQuery.isLoading) return <LoadingState label="Doktorlar yükleniyor" />
+  if (doctorsQuery.isError) return <ErrorState label="Doktorlar yüklenemedi" />
 
   return (
     <>
       <PageHeader
-        title="Doctors"
-        description="Maintain doctor profiles, contact details, and availability."
+        title="Doktorlar"
+        description="Doktor profillerini, iletişim bilgilerini ve uygunluk durumlarını yönetin."
         actions={
           <Button icon={<Plus className="h-4 w-4" />} onClick={openAdd}>
-            Add doctor
+            Doktor ekle
           </Button>
         }
       />
@@ -70,7 +71,7 @@ export default function DoctorsPage() {
         <Search className="h-5 w-5 text-slate-400" />
         <input
           className="w-full bg-transparent text-sm outline-none"
-          placeholder="Search doctors"
+          placeholder="Doktor ara"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
@@ -78,9 +79,9 @@ export default function DoctorsPage() {
 
       {filteredDoctors.length === 0 ? (
         <EmptyState
-          description="Add a doctor or adjust your search filter."
+          description="Bir doktor ekleyin veya arama filtresini değiştirin."
           icon={<UserRoundPlus className="h-6 w-6" />}
-          title="No doctors found"
+          title="Doktor bulunamadı"
         />
       ) : (
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -88,13 +89,13 @@ export default function DoctorsPage() {
             <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
               <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                 <tr>
-                  <th className="px-4 py-3">Doctor</th>
-                  <th className="px-4 py-3">Specialty</th>
-                  <th className="px-4 py-3">Contact</th>
-                  <th className="px-4 py-3">Working days</th>
-                  <th className="px-4 py-3">Hours</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3">Doktor</th>
+                  <th className="px-4 py-3">Uzmanlık</th>
+                  <th className="px-4 py-3">İletişim</th>
+                  <th className="px-4 py-3">Çalışma günleri</th>
+                  <th className="px-4 py-3">Saatler</th>
+                  <th className="px-4 py-3">Durum</th>
+                  <th className="px-4 py-3 text-right">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -109,7 +110,7 @@ export default function DoctorsPage() {
                       <p className="text-xs text-slate-500">{doctor.email}</p>
                     </td>
                     <td className="px-4 py-4 text-slate-600">
-                      {doctor.workingDays.join(", ")}
+                      {doctor.workingDays.map((day) => dayLabels[day] ?? day).join(", ")}
                     </td>
                     <td className="px-4 py-4 font-mono text-slate-600">
                       {doctor.workingStartTime} - {doctor.workingEndTime}
@@ -120,7 +121,7 @@ export default function DoctorsPage() {
                     <td className="px-4 py-4">
                       <div className="flex justify-end gap-2">
                         <Button
-                          aria-label={`Edit ${doctor.name}`}
+                          aria-label={`${doctor.name} düzenle`}
                           className="h-9 px-3"
                           icon={<Edit className="h-4 w-4" />}
                           variant="secondary"
@@ -130,7 +131,7 @@ export default function DoctorsPage() {
                           }}
                         />
                         <Button
-                          aria-label={`Delete ${doctor.name}`}
+                          aria-label={`${doctor.name} sil`}
                           className="h-9 px-3"
                           disabled={deleteDoctor.isPending}
                           icon={<Trash2 className="h-4 w-4" />}

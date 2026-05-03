@@ -20,7 +20,7 @@ const wait = async <T,>(data: T, shouldFail = false): Promise<T> => {
   await new Promise((resolve) => window.setTimeout(resolve, 350))
 
   if (shouldFail) {
-    throw new Error("Mock API error. Please try again.")
+    throw new Error("Simüle API hatası. Lütfen tekrar deneyin.")
   }
 
   return structuredClone(data)
@@ -75,13 +75,23 @@ export const clinicApi = {
     if (appointment) {
       const type =
         status === "Cancelled"
-          ? "Patient cancelled appointment"
+          ? "Randevu iptal edildi"
           : status === "Completed"
-            ? "Appointment completed"
-            : "New appointment request"
+            ? "Randevu tamamlandı"
+            : status === "Approved"
+              ? "Randevu onaylandı"
+              : "Yeni randevu talebi"
+      const statusLabel =
+        status === "Cancelled"
+          ? "iptal edildi"
+          : status === "Completed"
+            ? "tamamlandı"
+            : status === "Approved"
+              ? "onaylandı"
+              : "beklemeye alındı"
       addNotification(
         type,
-        `${appointment.patientName}'s appointment is now ${status.toLowerCase()}.`,
+        `${appointment.patientName} adlı hastanın randevusu ${statusLabel}.`,
         id,
       )
     }
@@ -100,8 +110,8 @@ export const clinicApi = {
     const appointment = appointmentsStore.find((item) => item.id === id)
     if (appointment) {
       addNotification(
-        "Appointment postponed",
-        `${appointment.patientName}'s visit was postponed to ${appointment.time}.`,
+        "Randevu ertelendi",
+        `${appointment.patientName} adlı hastanın ziyareti ${appointment.time} saatine ertelendi.`,
         id,
       )
     }

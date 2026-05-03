@@ -17,11 +17,11 @@ export default function DashboardPage() {
   const notificationsQuery = useNotifications()
 
   if (doctorsQuery.isLoading || appointmentsQuery.isLoading || notificationsQuery.isLoading) {
-    return <LoadingState label="Preparing dashboard" />
+    return <LoadingState label="Panel hazırlanıyor" />
   }
 
   if (doctorsQuery.isError || appointmentsQuery.isError || notificationsQuery.isError) {
-    return <ErrorState label="Dashboard data could not be loaded" />
+    return <ErrorState label="Panel verileri yüklenemedi" />
   }
 
   const doctors = doctorsQuery.data ?? []
@@ -36,32 +36,32 @@ export default function DashboardPage() {
   return (
     <>
       <PageHeader
-        title="Dashboard"
-        description="Today's clinic flow, pending work, and recent activity."
+        title="Panel"
+        description="Bugünkü klinik akışı, bekleyen işler ve son hareketler."
       />
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           icon={Stethoscope}
-          label="Total doctors"
+          label="Toplam doktor"
           tone="bg-cyan-50 text-cyan-700"
           value={doctors.length}
         />
         <StatCard
           icon={CalendarCheck}
-          label="Today's appointments"
+          label="Bugünkü randevular"
           tone="bg-blue-50 text-blue-700"
           value={todaysAppointments.length}
         />
         <StatCard
           icon={Bell}
-          label="Pending requests"
+          label="Bekleyen talepler"
           tone="bg-amber-50 text-amber-700"
           value={appointments.filter((item) => item.status === "Pending").length}
         />
         <StatCard
           icon={TimerOff}
-          label="Cancelled appointments"
+          label="İptal edilen randevular"
           tone="bg-rose-50 text-rose-700"
           value={appointments.filter((item) => item.status === "Cancelled").length}
         />
@@ -70,14 +70,14 @@ export default function DashboardPage() {
       <section className="mt-6 grid gap-6 xl:grid-cols-[1.5fr_1fr]">
         <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
           <div className="mb-4">
-            <h2 className="text-lg font-bold text-slate-950">Today's appointments</h2>
-            <p className="text-sm text-slate-500">Sorted by time and grouped by doctor.</p>
+            <h2 className="text-lg font-bold text-slate-950">Bugünkü randevular</h2>
+            <p className="text-sm text-slate-500">Saate göre sıralandı ve doktora göre gruplandı.</p>
           </div>
           {todaysAppointments.length === 0 ? (
             <EmptyState
-              description="No visits are scheduled for today."
+              description="Bugün için planlanmış ziyaret yok."
               icon={<CalendarCheck className="h-6 w-6" />}
-              title="No appointments"
+              title="Randevu yok"
             />
           ) : (
             <div className="space-y-5">
@@ -112,7 +112,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-950">Recent notifications</h2>
+          <h2 className="text-lg font-bold text-slate-950">Son bildirimler</h2>
           <div className="mt-4 space-y-3">
             {recentNotifications.map((notification) => (
               <div
