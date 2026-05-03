@@ -2,6 +2,13 @@ export type AppointmentStatus = "Pending" | "Approved" | "Cancelled" | "Complete
 
 export type DoctorStatus = "active" | "inactive"
 
+export interface DaySchedule {
+  startTime: string
+  endTime: string
+  breakStart: string
+  breakEnd: string
+}
+
 export type NotificationType =
   | "Yeni randevu talebi"
   | "Randevu onaylandı"
@@ -19,6 +26,7 @@ export interface Doctor {
   workingDays: string[]
   workingStartTime: string
   workingEndTime: string
+  daySchedule?: Record<string, DaySchedule>
   status: DoctorStatus
 }
 

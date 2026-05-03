@@ -10,6 +10,13 @@ export const doctors: Doctor[] = [
     workingDays: ["Monday", "Tuesday", "Wednesday", "Friday"],
     workingStartTime: "09:00",
     workingEndTime: "17:00",
+    daySchedule: {
+      Monday: { startTime: "09:00", endTime: "17:00", breakStart: "12:00", breakEnd: "13:00" },
+      Tuesday: { startTime: "09:00", endTime: "17:00", breakStart: "12:00", breakEnd: "13:00" },
+      Wednesday: { startTime: "09:00", endTime: "17:00", breakStart: "12:00", breakEnd: "13:00" },
+      Thursday: { startTime: "09:00", endTime: "17:00", breakStart: "12:00", breakEnd: "13:00" },
+      Friday: { startTime: "09:00", endTime: "15:00", breakStart: "12:00", breakEnd: "12:30" },
+    },
     status: "active",
   },
   {
@@ -21,6 +28,13 @@ export const doctors: Doctor[] = [
     workingDays: ["Monday", "Wednesday", "Thursday"],
     workingStartTime: "10:00",
     workingEndTime: "18:00",
+    daySchedule: {
+      Monday: { startTime: "10:00", endTime: "18:00", breakStart: "13:00", breakEnd: "14:00" },
+      Tuesday: { startTime: "10:00", endTime: "18:00", breakStart: "13:00", breakEnd: "14:00" },
+      Wednesday: { startTime: "10:00", endTime: "18:00", breakStart: "13:00", breakEnd: "14:00" },
+      Thursday: { startTime: "10:00", endTime: "18:00", breakStart: "13:00", breakEnd: "14:00" },
+      Friday: { startTime: "10:00", endTime: "18:00", breakStart: "13:00", breakEnd: "14:00" },
+    },
     status: "active",
   },
   {
@@ -32,6 +46,13 @@ export const doctors: Doctor[] = [
     workingDays: ["Tuesday", "Wednesday", "Thursday", "Friday"],
     workingStartTime: "08:30",
     workingEndTime: "16:30",
+    daySchedule: {
+      Monday: { startTime: "08:30", endTime: "16:30", breakStart: "12:00", breakEnd: "13:00" },
+      Tuesday: { startTime: "08:30", endTime: "16:30", breakStart: "12:00", breakEnd: "13:00" },
+      Wednesday: { startTime: "08:30", endTime: "16:30", breakStart: "12:00", breakEnd: "13:00" },
+      Thursday: { startTime: "08:30", endTime: "16:30", breakStart: "12:00", breakEnd: "13:00" },
+      Friday: { startTime: "08:30", endTime: "16:30", breakStart: "12:00", breakEnd: "13:00" },
+    },
     status: "active",
   },
   {
@@ -43,6 +64,13 @@ export const doctors: Doctor[] = [
     workingDays: ["Monday", "Tuesday", "Thursday"],
     workingStartTime: "11:00",
     workingEndTime: "19:00",
+    daySchedule: {
+      Monday: { startTime: "11:00", endTime: "19:00", breakStart: "13:00", breakEnd: "14:00" },
+      Tuesday: { startTime: "11:00", endTime: "19:00", breakStart: "13:00", breakEnd: "14:00" },
+      Wednesday: { startTime: "11:00", endTime: "19:00", breakStart: "13:00", breakEnd: "14:00" },
+      Thursday: { startTime: "11:00", endTime: "19:00", breakStart: "13:00", breakEnd: "14:00" },
+      Friday: { startTime: "11:00", endTime: "19:00", breakStart: "13:00", breakEnd: "14:00" },
+    },
     status: "inactive",
   },
 ]

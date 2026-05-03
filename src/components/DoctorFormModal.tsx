@@ -1,10 +1,34 @@
 import { X } from "lucide-react"
 import { useState } from "react"
-import type { Doctor, DoctorFormValues } from "../types"
+import type { DaySchedule, Doctor, DoctorFormValues } from "../types"
 import Button from "./Button"
 import { shortDayLabels } from "./utils"
 
-const dayOptions = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+const dayOptions = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+const DEFAULT_SCHEDULE: DaySchedule = {
+  startTime: "09:00",
+  endTime: "17:00",
+  breakStart: "12:00",
+  breakEnd: "13:00",
+}
+
+function buildInitialSchedule(
+  fallbackStart: string,
+  fallbackEnd: string,
+  existing?: Record<string, DaySchedule>,
+): Record<string, DaySchedule> {
+  const result: Record<string, DaySchedule> = {}
+  for (const day of dayOptions) {
+    result[day] = existing?.[day] ?? {
+      startTime: fallbackStart,
+      endTime: fallbackEnd,
+      breakStart: "12:00",
+      breakEnd: "13:00",
+    }
+  }
+  return result
+}
 
 const emptyValues: DoctorFormValues = {
   name: "",
@@ -14,6 +38,7 @@ const emptyValues: DoctorFormValues = {
   workingDays: ["Monday", "Tuesday", "Wednesday"],
   workingStartTime: "09:00",
   workingEndTime: "17:00",
+  daySchedule: buildInitialSchedule("09:00", "17:00"),
   status: "active",
 }
 
@@ -42,6 +67,11 @@ export default function DoctorFormModal({
           workingDays: doctor.workingDays,
           workingStartTime: doctor.workingStartTime,
           workingEndTime: doctor.workingEndTime,
+          daySchedule: buildInitialSchedule(
+            doctor.workingStartTime,
+            doctor.workingEndTime,
+            doctor.daySchedule,
+          ),
           status: doctor.status,
         }
       : emptyValues,
@@ -58,13 +88,36 @@ export default function DoctorFormModal({
     }))
   }
 
+  const updateDaySchedule = (day: string, field: keyof DaySchedule, value: string) => {
+    setValues((current) => ({
+      ...current,
+      daySchedule: {
+        ...current.daySchedule,
+        [day]: {
+          ...(current.daySchedule?.[day] ?? DEFAULT_SCHEDULE),
+          [field]: value,
+        },
+      },
+    }))
+  }
+
+  const handleSubmit = () => {
+    const firstDay = dayOptions.find((d) => values.workingDays.includes(d))
+    const firstSchedule = firstDay ? (values.daySchedule?.[firstDay] ?? DEFAULT_SCHEDULE) : DEFAULT_SCHEDULE
+    onSubmit({
+      ...values,
+      workingStartTime: firstSchedule.startTime,
+      workingEndTime: firstSchedule.endTime,
+    })
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm">
       <form
-        className="w-full max-w-2xl rounded-lg bg-white shadow-2xl shadow-slate-950/20"
+        className="w-full max-w-3xl rounded-lg bg-white shadow-2xl shadow-slate-950/20"
         onSubmit={(event) => {
           event.preventDefault()
-          onSubmit(values)
+          handleSubmit()
         }}
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
@@ -131,30 +184,6 @@ export default function DoctorFormModal({
             />
           </label>
           <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Başlangıç saati
-            <input
-              required
-              type="time"
-              className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
-              value={values.workingStartTime}
-              onChange={(event) =>
-                setValues({ ...values, workingStartTime: event.target.value })
-              }
-            />
-          </label>
-          <label className="space-y-1 text-sm font-semibold text-slate-700">
-            Bitiş saati
-            <input
-              required
-              type="time"
-              className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
-              value={values.workingEndTime}
-              onChange={(event) =>
-                setValues({ ...values, workingEndTime: event.target.value })
-              }
-            />
-          </label>
-          <label className="space-y-1 text-sm font-semibold text-slate-700">
             Durum
             <select
               className="w-full rounded-md border border-slate-200 px-3 py-2 font-normal text-slate-900 outline-none focus:border-cyan-500"
@@ -189,6 +218,76 @@ export default function DoctorFormModal({
               ))}
             </div>
           </div>
+
+          {values.workingDays.length > 0 && (
+            <div className="sm:col-span-2 overflow-x-auto">
+              <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="bg-slate-50 text-left">
+                    <th className="px-3 py-2 font-medium text-slate-500">Gün</th>
+                    <th className="px-3 py-2 font-medium text-slate-500">Başlangıç</th>
+                    <th className="px-3 py-2 font-medium text-slate-500">Bitiş</th>
+                    <th className="px-3 py-2 font-medium text-slate-500">Mola başlangıcı</th>
+                    <th className="px-3 py-2 font-medium text-slate-500">Mola bitişi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dayOptions
+                    .filter((day) => values.workingDays.includes(day))
+                    .map((day) => {
+                      const schedule = values.daySchedule?.[day] ?? DEFAULT_SCHEDULE
+                      return (
+                        <tr key={day} className="border-t border-slate-100">
+                          <td className="px-3 py-2 font-semibold text-slate-700">
+                            {shortDayLabels[day] ?? day}
+                          </td>
+                          <td className="px-3 py-2">
+                            <input
+                              type="time"
+                              className="w-full rounded border border-slate-200 px-2 py-1 text-slate-900 outline-none focus:border-cyan-500"
+                              value={schedule.startTime}
+                              onChange={(e) =>
+                                updateDaySchedule(day, "startTime", e.target.value)
+                              }
+                            />
+                          </td>
+                          <td className="px-3 py-2">
+                            <input
+                              type="time"
+                              className="w-full rounded border border-slate-200 px-2 py-1 text-slate-900 outline-none focus:border-cyan-500"
+                              value={schedule.endTime}
+                              onChange={(e) =>
+                                updateDaySchedule(day, "endTime", e.target.value)
+                              }
+                            />
+                          </td>
+                          <td className="px-3 py-2">
+                            <input
+                              type="time"
+                              className="w-full rounded border border-slate-200 px-2 py-1 text-slate-900 outline-none focus:border-cyan-500"
+                              value={schedule.breakStart}
+                              onChange={(e) =>
+                                updateDaySchedule(day, "breakStart", e.target.value)
+                              }
+                            />
+                          </td>
+                          <td className="px-3 py-2">
+                            <input
+                              type="time"
+                              className="w-full rounded border border-slate-200 px-2 py-1 text-slate-900 outline-none focus:border-cyan-500"
+                              value={schedule.breakEnd}
+                              onChange={(e) =>
+                                updateDaySchedule(day, "breakEnd", e.target.value)
+                              }
+                            />
+                          </td>
+                        </tr>
+                      )
+                    })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
         <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">

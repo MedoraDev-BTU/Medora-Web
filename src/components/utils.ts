@@ -18,6 +18,8 @@ export const dayLabels: Record<string, string> = {
   Wednesday: "Çarşamba",
   Thursday: "Perşembe",
   Friday: "Cuma",
+  Saturday: "Cumartesi",
+  Sunday: "Pazar",
 }
 
 export const shortDayLabels: Record<string, string> = {
@@ -26,6 +28,8 @@ export const shortDayLabels: Record<string, string> = {
   Wednesday: "Çar",
   Thursday: "Per",
   Friday: "Cum",
+  Saturday: "Cmt",
+  Sunday: "Paz",
 }
 
 export const appointmentStatusLabels: Record<Appointment["status"] | "All", string> = {
