@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import AdminLayout from "./layouts/AdminLayout"
 import AppointmentHistoryPage from "./pages/AppointmentHistoryPage"
 import AppointmentsPage from "./pages/AppointmentsPage"
+import AdminProfilePage from "./pages/AdminProfilePage"
 import DashboardPage from "./pages/DashboardPage"
 import DoctorsPage from "./pages/DoctorsPage"
 import LoginPage from "./pages/LoginPage"
@@ -22,6 +23,7 @@ function App() {
         <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/history" element={<AppointmentHistoryPage />} />
+        <Route path="/profile" element={<AdminProfilePage />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>

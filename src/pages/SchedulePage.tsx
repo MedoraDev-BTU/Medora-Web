@@ -11,6 +11,8 @@ const week = [
   { label: "Çar", date: "2026-04-29", name: "Wednesday" },
   { label: "Per", date: "2026-04-30", name: "Thursday" },
   { label: "Cum", date: "2026-05-01", name: "Friday" },
+  { label: "Cmt", date: "2026-05-02", name: "Saturday" },
+  { label: "Paz", date: "2026-05-03", name: "Sunday" },
 ]
 
 const timeSlots = ["08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "12:00", "13:30", "14:00", "15:00", "16:00", "17:00"]
@@ -61,8 +63,8 @@ export default function SchedulePage() {
                 </p>
               </div>
               <div className="overflow-x-auto">
-                <div className="min-w-[900px]">
-                  <div className="grid grid-cols-[92px_repeat(5,1fr)] border-b border-slate-200 bg-white text-xs font-bold uppercase tracking-wide text-slate-500">
+                <div className="min-w-[1200px]">
+                  <div className="grid grid-cols-[92px_repeat(7,1fr)] border-b border-slate-200 bg-white text-xs font-bold uppercase tracking-wide text-slate-500">
                     <div className="px-3 py-3">Saat</div>
                     {week.map((day) => (
                       <div key={day.date} className="border-l border-slate-200 px-3 py-3">
@@ -73,7 +75,7 @@ export default function SchedulePage() {
                   {timeSlots.map((time) => (
                     <div
                       key={time}
-                      className="grid grid-cols-[92px_repeat(5,1fr)] border-b border-slate-100 last:border-b-0"
+                      className="grid grid-cols-[92px_repeat(7,1fr)] border-b border-slate-100 last:border-b-0"
                     >
                       <div className="px-3 py-3 font-mono text-xs font-semibold text-slate-500">
                         {time}

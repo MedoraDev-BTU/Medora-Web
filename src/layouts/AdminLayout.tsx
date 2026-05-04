@@ -117,7 +117,10 @@ export default function AdminLayout() {
           <div className="hidden text-sm font-semibold text-slate-600 sm:block">
             Klinik randevu yönetimi
           </div>
-          <div className="flex items-center gap-3">
+          <NavLink
+            className="flex items-center gap-3 rounded-md px-2 py-1.5 transition hover:bg-slate-100"
+            to="/profile"
+          >
             <div className="hidden text-right sm:block">
               <p className="text-sm font-bold text-slate-950">Yönetici</p>
               <p className="text-xs text-slate-500">Operasyon masası</p>
@@ -125,7 +128,7 @@ export default function AdminLayout() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-sm font-bold text-cyan-700">
               YK
             </div>
-          </div>
+          </NavLink>
         </header>
         <main className="mx-auto w-full max-w-7xl px-4 py-6 lg:px-8">
           <Outlet />

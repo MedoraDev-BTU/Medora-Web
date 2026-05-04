@@ -86,14 +86,38 @@ export default function RegisterPage() {
             </div>
           </label>
 
-          <label className="text-sm font-semibold text-slate-700 sm:col-span-2">
-            Konum
+          <label className="text-sm font-semibold text-slate-700">
+            Şehir
             <div className="mt-2 flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 focus-within:border-cyan-500">
               <MapPin className="h-5 w-5 text-slate-400" />
               <input
                 required
                 className="w-full outline-none"
-                placeholder="İl, ilçe ve açık adres"
+                placeholder="İstanbul"
+              />
+            </div>
+          </label>
+
+          <label className="text-sm font-semibold text-slate-700">
+            İlçe
+            <div className="mt-2 flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 focus-within:border-cyan-500">
+              <MapPin className="h-5 w-5 text-slate-400" />
+              <input
+                required
+                className="w-full outline-none"
+                placeholder="Kadıköy"
+              />
+            </div>
+          </label>
+
+          <label className="text-sm font-semibold text-slate-700 sm:col-span-2">
+            Açık Adres
+            <div className="mt-2 flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 focus-within:border-cyan-500">
+              <MapPin className="h-5 w-5 text-slate-400" />
+              <input
+                required
+                className="w-full outline-none"
+                placeholder="Mahalle, cadde, sokak ve bina numarası"
               />
             </div>
           </label>

@@ -114,13 +114,13 @@ export default function DoctorFormModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm">
       <form
-        className="w-full max-w-3xl rounded-lg bg-white shadow-2xl shadow-slate-950/20"
+        className="flex max-h-[90vh] w-full max-w-3xl flex-col rounded-lg bg-white shadow-2xl shadow-slate-950/20"
         onSubmit={(event) => {
           event.preventDefault()
           handleSubmit()
         }}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-slate-200 px-6 py-4">
           <div>
             <h2 className="text-lg font-bold text-slate-950">
               {doctor ? "Doktoru düzenle" : "Doktor ekle"}
@@ -137,7 +137,7 @@ export default function DoctorFormModal({
           </button>
         </div>
 
-        <div className="grid gap-4 px-6 py-5 sm:grid-cols-2">
+        <div className="grid min-h-0 gap-4 overflow-y-auto px-6 py-5 sm:grid-cols-2">
           <label className="space-y-1 text-sm font-semibold text-slate-700">
             Doktor adı
             <input
@@ -290,7 +290,7 @@ export default function DoctorFormModal({
           )}
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-200 px-6 py-4">
+        <div className="flex shrink-0 justify-end gap-3 border-t border-slate-200 px-6 py-4">
           <Button type="button" variant="secondary" onClick={onClose}>
             Vazgeç
           </Button>
