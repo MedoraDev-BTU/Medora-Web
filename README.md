@@ -1,14 +1,14 @@
 # Medora Admin Frontend
 
-Medora Admin is a React and TypeScript frontend for managing clinic appointments from an admin dashboard. The interface is built with Vite, Tailwind CSS, React Router, TanStack Query, Axios, and lucide-react icons.
+Medora Admin, klinik randevularını yönetmek için geliştirilen React ve TypeScript tabanlı bir yönetim paneli arayüzüdür. Arayüz Vite, Tailwind CSS, React Router, TanStack Query, Axios ve lucide-react ikonları ile oluşturulmuştur.
 
-## Frontend Overview
+## Frontend Özeti
 
-The frontend provides a responsive administration panel for clinic staff. It includes pages for the dashboard, doctors, appointments, schedule, notifications, appointment history, admin profile, login, and registration. Admin users can view daily appointment activity, manage doctor records, update appointment statuses, postpone appointments, and track notifications.
+Frontend, klinik personeli için responsive bir yönetim paneli sunar. Uygulamada panel, doktorlar, randevular, takvim, bildirimler, randevu geçmişi, yönetici profili, giriş ve kayıt sayfaları bulunur. Yönetici kullanıcılar günlük randevu akışını görüntüleyebilir, doktor kayıtlarını yönetebilir, randevu durumlarını güncelleyebilir, randevuları erteleyebilir ve bildirimleri takip edebilir.
 
-Data is currently served from local mock data through a simulated API layer in `src/services/api.ts`. TanStack Query is used to fetch and update this data, which keeps the UI behavior close to how it would work with a real backend API.
+Veriler şu anda `src/services/api.ts` içinde bulunan simüle edilmiş API katmanı üzerinden yerel mock verilerden sağlanmaktadır. TanStack Query, bu verileri almak ve güncellemek için kullanılır; böylece arayüz davranışı gerçek bir backend API ile çalışıyormuş gibi tasarlanmıştır.
 
-## Tech Stack
+## Kullanılan Teknolojiler
 
 - React
 - TypeScript
@@ -19,21 +19,21 @@ Data is currently served from local mock data through a simulated API layer in `
 - Axios
 - lucide-react
 
-## Run Locally
+## Yerelde Çalıştırma
 
-Install dependencies:
+Bağımlılıkları yükleyin:
 
 ```bash
 npm install
 ```
 
-Start the development server:
+Geliştirme sunucusunu başlatın:
 
 ```bash
 npm run dev
 ```
 
-Build for production:
+Production build almak için:
 
 ```bash
 npm run build
